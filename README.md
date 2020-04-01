@@ -3,6 +3,8 @@ rtchat
 
 This is a tiny and lightweight **experiment** to easily host live video conferences using the WebRTC protocol.
 
+*The demo server at https://live.voixdunet.com/ should only be used for testing purposes and could be down at any time.*
+
 Since I love simple things, this tiny server is written in **Go**, final binary weights **~10mb**, uses **~8mb** of memory and provides:
 
 - A STUN/TURN server using the [pion/turn](https://github.com/pion/turn) package that will forward streams if two peers cannot communicate directly,
