@@ -24,9 +24,12 @@
     const ws = new WebSocket(((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host + "/ws/" + config.roomID, config.roomCred);
 
     // Upon close, show an alert and go back to the web root
-    ws.onclose = function() {
-        alert('communication closed');
-        window.location.href = window.location.protocol + '//' + window.location.host;
+    ws.onclose = function() {        
+        for(const id in peers) {
+            peers[id].close();
+        }
+        
+        alert('communication closed, nothing to see anymore');
     }
 
     ws.onmessage = async function(e) {
@@ -38,7 +41,7 @@
             // New user has joined, let's starts an RTCPeerConnection for this user
             // and make an offer.
             const peer = await createPeer(msg.joined.id);
-            
+
             peer.oniceconnectionstatechange = function() {
                 // TODO: handle connection state change and restart ice?
                 // https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Session_lifetime#ICE_restart
