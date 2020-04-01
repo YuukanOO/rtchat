@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rtchat live room</title>
+    <meta name="description" content="A WebRTC experiment for peer conferences.">
+    <link rel="stylesheet" href="/static/main.css"></link>
+    <script type="text/javascript">
+    const config = {
+        roomID: "{{ .RoomID }}",
+        roomCred: "{{ .RoomCredential }}",
+        iceServers: [
+            {
+                urls: "{{ .StunURL }}",
+            },
+            {
+                urls: "{{ .TurnURL }}",
+                username: "{{ .Username }}",
+                credential: "{{ .Credential }}",
+            },
+        ],
+    }
+    </script>
+</head>
+<body>
+    <div class="videos">
+        <video class="local videos__peer" autoplay></video>
+    </div>
+
+    <script type="text/javascript" src="/static/room.js"></script>
+</body>
+</html>
