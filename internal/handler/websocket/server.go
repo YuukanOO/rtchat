@@ -157,10 +157,11 @@ func (h *hub) Run() error {
 	user: %s
 	room: %s`, c.id, c.room)
 
+			// Trigger a check for emptiness in a while
+			h.CheckEmptiness(c.room)
+
 			// Notify every other user in the same room that a user has left
-			// and trigger a check for emptiness
 			go func() {
-				h.check <- c.room
 				h.send <- &message{
 					room: c.room,
 					From: c.id,
