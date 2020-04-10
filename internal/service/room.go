@@ -49,22 +49,22 @@ func (s *service) CreateRoom() string {
 	}
 
 	s.mutex.Lock()
+	defer s.mutex.Unlock()
 	s.rooms[id] = r
-	s.mutex.Unlock()
 
 	return r.ID
 }
 
 func (s *service) DeleteRoom(id string) {
 	s.mutex.Lock()
+	defer s.mutex.Unlock()
 	s.rooms[id] = nil
 	delete(s.rooms, id)
-	s.mutex.Unlock()
 }
 
 func (s *service) GetRoom(id string) *Room {
 	s.mutex.RLock()
+	defer s.mutex.RUnlock()
 	room := s.rooms[id]
-	s.mutex.RUnlock()
 	return room
 }
